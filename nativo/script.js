@@ -42,28 +42,37 @@ async function filtrarDados(idPersonagem){
     try {
         let resultado = await fetch(url)
         const dados = await resultado.json()
-        console.log(dados)
+        console.log(resultado)
+
         let linha = document.createElement("tr")
 
         let tdName = document.createElement("td")
-        tdName.textContent = `Meu nome é ${dados.name}`
+        tdName.textContent = dados.name
         linha.appendChild(tdName)
 
         let tdPeso = document.createElement("td")
-        tdPeso.textContent = `Meu peso é ${dados.mass}`
+        tdPeso.textContent = dados.mass
         linha.appendChild(tdPeso)
 
         let tdOlho = document.createElement("td")
-        tdOlho.textContent = `Meu peso é ${dados.eye_color}`
+        tdOlho.textContent = dados.eye_color
         linha.appendChild(tdOlho)
 
         tabela.appendChild(linha)
+
+        while(resultado.status!=200){
+            btnFiltrar.setAttribute("disabled", "disabled")
+            btnFiltrar.textContent = "Carregando..."
+        }
+
+        btnFiltrar.removeAttribute("disabled")
+        btnFiltrar.textContent = "Filtrar"
+
     } catch (error) {
         console.log(" O erro encontrado é: ", error)
     }
       
     }
-
 
 //carregarDados()
 btnFiltrar.addEventListener("click", (evento)=>{
