@@ -58,8 +58,13 @@ async function filtrarDados(idPersonagem){
         tdOlho.textContent = dados.eye_color
         linha.appendChild(tdOlho)
 
-        tabela.appendChild(linha)
+        // SE HOUVER ALGUMA LINHA SERÁ REMOVIDA
+        if(tabela.children.length>0){
+            tabela.removeChild(tabela.firstElementChild)
+        }
 
+        tabela.appendChild(linha)
+        
         while(resultado.status!=200){
             btnFiltrar.setAttribute("disabled", "disabled")
             btnFiltrar.textContent = "Carregando..."
